@@ -67,6 +67,7 @@ parser.add_argument('--pytrack', default='/home/ubuntu/codes/pytracking', metava
 parser.add_argument('--pytrack-model', default='dimp', metavar='M', help='model')
 parser.add_argument('--pytrack-net', default='dimp18', metavar='M', help='network')
 parser.add_argument('--early-done', dest='early_done', action='store_true', help='early stop the episode')
+parser.add_argument('--deterministic', dest='deterministic', action='store_true', help='deterministic policy')
 
 if __name__ == '__main__':
     args = parser.parse_args()
@@ -170,9 +171,10 @@ if __name__ == '__main__':
                     img = env.render(mode='rgb_array')
                     cv2.imwrite(os.path.join(args.save, str(i_episode), "%05d" % player.eps_len +'.png'), img)
 
-                player.action_test(False)
+                player.action_test(args.deterministic)
+                if args.clip_reward:
+                    player.reward = np.clip(player.reward, -1, 1)
                 reward_sum += player.reward
-
                 if player.done:
                     num_tests += 1
                     rewards_his.append(reward_sum[:2])
