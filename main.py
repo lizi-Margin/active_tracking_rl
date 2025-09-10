@@ -66,6 +66,7 @@ if __name__ == '__main__':
             device_share = torch.device('cpu')
         else:
             device_share = torch.device('cuda:' + str(args.gpu_ids[-1]))
+    print(f"device_share: {device_share}")
     env = create_env(args.env, args)
 
     shared_model = build_model(

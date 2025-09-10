@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.random import randint
 from itertools import product as cartesian_product
-from skimage.draw import circle
+# from skimage.draw import circle
 
 
 class MazeGenerator(object):
